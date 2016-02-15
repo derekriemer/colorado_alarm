@@ -1,10 +1,6 @@
 # Weather Alarm Clock
 # Team: 
-* Brandon Barrett - ditofry
-*Andrew Gaines - asgaines 
-*Amir Kashipazha - amirkashi 
-*Dilara Madinger - cudilara 
-*Derek Riemer - derekriemer
+Brandon Barrett - ditofry, Andrew Gaines - asgaines, Amir Kashipazha - amirkashi, Dilara Madinger - cudilara, Derek Riemer - derekriemer
 #Title: 
 Weather Alarm Clock
 
@@ -26,7 +22,7 @@ There are five team members in our group and this allows for working on separate
 #Requirements:
 										
 |	ID 	|	Requirements 	|	 Time (hour)	|	 Type of Requirements 	|	 User Story    	|
-|:----    :---------           :---------         :-----------                  :------------										
+|:----  |  :---------       |    :---------      |   :-----------           |       :------------|
 |	01	|	alarm set/disable	|	7	|	user 	|	As a user, I want to set and disable the alarm so that I can control when I wake up.	|
 |	02	|	alarm tone	|	7	|	user 	|	As a user, I want to set different alarm tones so that I can hear pleasant sounds.	|
 |	03	|	find location	|	2	|	fucntional	|	As a developer, I need access to location data so that I can retrieve weather data for the user.	|

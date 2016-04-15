@@ -1,5 +1,6 @@
 package com.robobrandon.simpleweather;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
@@ -225,6 +226,14 @@ public class MainActivity extends Activity {
     private void txtError(Exception e) {
         mTxtError.setVisibility(View.VISIBLE);
         e.printStackTrace();
+    }
+
+    // UI Method
+    public void setAlarm(View view){
+        // Build our Intent
+        Intent intent = new Intent(this, AlarmActivity.class);
+        // Don't need to pass anything, just transition.
+        startActivity(intent);
     }
 
 }

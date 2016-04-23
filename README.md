@@ -1,4 +1,13 @@
 # Weather Alarm Clock
+
+### Building project
+There are some dependencies that need to be added and configured before this project can be built:
+ - Install and enable Android5.1.1 SDK (api level 22) by selecting **tools -> Android -> SDK Manager** from the Android Studio overhead menu bar.  This API is required for the  [volley](http://developer.android.com/training/volley/index.html) module
+ - Clone volley to some location on your computer with `git clone https://android.googlesource.com/platform/frameworks/volley`
+ - In android studio `file -> new -> import module`. Use the file selector to navigate to the volley folder that was just cloned and select the top-level `volley` folder to import. **Your project might try to build automatically at this point.  It will fail, this is to be expected**.
+ - In Android Studio open `Gradle Scripts -> build.gradle (Module: volley)`  find the line `apply from: 'bintray.gradle'` (should be at the end of the file) and comment it out or remove it.
+ - Rebuild your project and it should work.  Note: It's possible (depending on your JDK version/setup) that there are additional SDKs that need to be setup.  If there are error messages being thrown at this point, it is highly likely that you're missing an SDK, and should be able to click the error links to install the proper SDKs.
+
 ### Team:
 Brandon Barrett - ditofry, Andrew Gaines - asgaines, Amir Kashipazha - amirkashi, Dilara Madinger - cudilara, Derek Riemer - derekriemer
 

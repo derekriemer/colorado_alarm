@@ -1,4 +1,4 @@
-# Weather Alarm Clock
+### Weather Alarm Clock
 
 ### Building project
 There are some dependencies that need to be added and configured before this project can be built:

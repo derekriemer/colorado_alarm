@@ -9,7 +9,7 @@ There are some dependencies that need to be added and configured before this pro
  - Rebuild your project and it should work.  Note: It's possible (depending on your JDK version/setup) that there are additional SDKs that need to be setup.  If there are error messages being thrown at this point, it is highly likely that you're missing an SDK, and should be able to click the error links to install the proper SDKs.
 
 ### Team:
-Brandon Barrett - ditofry, Andrew Gaines - asgaines, Amir Kashipazha - amirkashi, Dilara Madinger - cudilara, Derek Riemer - derekriemer
+Brandon Barrett - ditofry, Amir Kashipazha - amirkashi, Dilara Madinger - cudilara, Derek Riemer - derekriemer
 
 ### Title:
 Weather Alarm Clock

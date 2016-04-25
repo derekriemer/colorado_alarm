@@ -5,11 +5,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-public class MarsWeather extends Application {
+public class RestHelper extends Application {
 
-    public static final String TAG = MarsWeather.class.getSimpleName();
+    public static final String TAG = RestHelper.class.getSimpleName();
     private RequestQueue mRequestQueue;
-    private static MarsWeather mInstance;
+    private static RestHelper mInstance;
 
     @Override
     public void onCreate() {
@@ -18,7 +18,7 @@ public class MarsWeather extends Application {
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
     }
 
-    public static synchronized MarsWeather getInstance() {
+    public static synchronized RestHelper getInstance() {
         return mInstance;
     }
     public RequestQueue getRequestQueue() {

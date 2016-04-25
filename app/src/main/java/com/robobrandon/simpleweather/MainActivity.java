@@ -1,5 +1,6 @@
 package com.robobrandon.simpleweather;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.app.AlarmManager;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -85,6 +87,7 @@ public class MainActivity extends Activity {
 
         // Weather data
         loadWeatherData();
+        scheduleWeatherCheck();
 
     }
 
@@ -234,6 +237,28 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, AlarmActivity.class);
         // Don't need to pass anything, just transition.
         startActivity(intent);
+    }
+
+    // Setup a recurring alarm every half hour
+    public void scheduleWeatherCheck() {
+        // Construct an intent that will execute the AlarmReceiver
+        Intent intent = new Intent(getApplicationContext(), WeatherPullReceiver.class);
+        // Create a PendingIntent to be triggered when the alarm goes off
+        final PendingIntent pIntent = PendingIntent.getBroadcast(this, WeatherPullReceiver.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // Setup periodic alarm every 5 seconds
+        long firstMillis = System.currentTimeMillis(); // alarm is set right away
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
+                AlarmManager.INTERVAL_HALF_HOUR, pIntent);
+    }
+
+    public void cancelWeatherService() {
+        Intent intent = new Intent(getApplicationContext(), WeatherPullReceiver.class);
+        final PendingIntent pIntent = PendingIntent.getBroadcast(this, WeatherPullReceiver.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.cancel(pIntent);
     }
 
 }

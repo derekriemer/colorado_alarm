@@ -62,6 +62,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         //create an intent to this ringtone service
         Intent service_intent = new Intent(context,RingtonePlayingService.class);
 
+
         //pass the extra string from alarmreceiver to the ringtoneplaying service
         service_intent.putExtra("extra", get_your_string);
         //pass the extra integer from the receiver to the ringtone playing service

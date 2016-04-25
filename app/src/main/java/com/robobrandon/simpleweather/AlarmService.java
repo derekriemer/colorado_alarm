@@ -1,4 +1,4 @@
-package com.robobrandon.simpleweather;
+/*package com.robobrandon.simpleweather;
 
 
 import android.app.IntentService;
@@ -40,3 +40,4 @@ public class AlarmService extends IntentService {
         Log.d("AlarmService", "Notification sent.");
     }
 }
+*/

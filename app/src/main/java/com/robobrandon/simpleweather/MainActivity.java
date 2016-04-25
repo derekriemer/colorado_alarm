@@ -239,7 +239,7 @@ public class MainActivity extends Activity {
     // UI Method
     public void setAlarm(View view){
         // Build our Intent
-        Intent intent = new Intent(this, AlarmActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         // Don't need to pass anything, just transition.
         startActivity(intent);
     }

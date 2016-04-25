@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Weather</string>
+    <string name="app_name">Colorado Alarm Clock</string>
     <string name="set_alarm_link">Set Alarm</string>
     <string name="action_settings">Settings</string>
 

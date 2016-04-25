@@ -1,45 +1,10 @@
 package com.robobrandon.simpleweather;
-
-/*
-import android.app.Activity;
-import android.content.ComponentName;
+//resource <https://www.youtube.com/watch?v=KseXIsTLXaY&list=PL4uut9QecF3DLAacEoTctzeqTyvgzqYwA&index=2#t=1.8585>
+// and Android Studio documentation.
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.support.v4.content.WakefulBroadcastReceiver;
-
-public class AlarmReceiver extends WakefulBroadcastReceiver {
-
-    @Override
-    public void onReceive(final Context context, Intent intent) {
-        //this will update the UI with message
-        AlarmActivity inst = AlarmActivity.instance();
-        inst.setAlarmText("Alarm! Wake up! Wake up!");
-
-        //this will sound the alarm tone
-        //this will sound the alarm once, if you wish to
-        //raise alarm in loop continuously then use MediaPlayer and setLooping(true)
-        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        if (alarmUri == null) {
-            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        }
-        Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
-        ringtone.play();
-
-        //this will send a notification message
-        ComponentName comp = new ComponentName(context.getPackageName(),
-                AlarmService.class.getName());
-        startWakefulService(context, (intent.setComponent(comp)));
-        setResultCode(Activity.RESULT_OK);
-    }
-}
-*/
-import android.content.BroadcastReceiver;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.util.Log;
+import android.util.Log;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -57,11 +22,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         //tells the app which value the user picked from the drop down spinner
         Integer get_weather_choice = intent.getExtras().getInt("weather_choice");
 
-        Log.e("Weather choice is ", get_weather_choice.toString());
+        Log.e("Wheather choice is ", get_weather_choice.toString());
 
         //create an intent to this ringtone service
         Intent service_intent = new Intent(context,RingtonePlayingService.class);
-
 
         //pass the extra string from alarmreceiver to the ringtoneplaying service
         service_intent.putExtra("extra", get_your_string);
@@ -72,3 +36,4 @@ public class AlarmReceiver extends BroadcastReceiver {
         context.startService(service_intent);
     }
 }
+

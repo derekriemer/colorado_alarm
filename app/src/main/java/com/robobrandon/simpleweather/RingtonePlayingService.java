@@ -1,5 +1,8 @@
 package com.robobrandon.simpleweather;
 //mp3 files are taken from <http://soundbible.com/royalty-free-sounds-1.html>
+//mp3 files are taken from <http://soundbible.com/royalty-free-sounds-1.html>
+//resource <https://www.youtube.com/watch?v=KseXIsTLXaY&list=PL4uut9QecF3DLAacEoTctzeqTyvgzqYwA&index=2#t=1.8585>
+// and Android Studio documentation.
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -45,7 +48,7 @@ public class RingtonePlayingService extends Service {
         PendingIntent pending_intent_main_activity = PendingIntent.getActivity(this, 0, intent_main_activity, 0);
         //make the notification parameters.
         //there is a bug here
-        // .setSmallIcon(R.mipmap.logo)
+        // .setSmallIcon(R.drawable.logo)
         Notification notification_popup = new Notification.Builder(this)
                 .setContentTitle("An alarm is going off.")
                 .setContentText("Click me.")

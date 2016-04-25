@@ -1,12 +1,11 @@
 <resources>
-    <string name="app_name">Colorado Alarm Clock</string>
-    <string name="set_alarm_link">Set Alarm</string>
+    <string name="app_name">Weather Alarm Clock</string>
     <string name="action_settings">Settings</string>
 
-<string-array name="weather_array">
-    <item>random track</item>
-    <item>rain</item>
-    <item>snow</item>
-    <item>sun</item>
-</string-array>
+    <string-array name="weather_array">
+        <item>random track</item>
+        <item>rain</item>
+        <item>snow</item>
+        <item>sun</item>
+    </string-array>
 </resources>

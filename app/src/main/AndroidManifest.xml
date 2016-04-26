@@ -26,6 +26,9 @@
         <receiver
             android:name=".AlarmReceiver"
             android:process=":remote"/> <!-- see http://stackoverflow.com/questions/4311069/should-i-use-android-process-remote-in-my-receiver -->
+        <service
+            android:name=".RingtonePlayingService"
+            android:enabled="true" />
 
         <service
             android:name=".WeatherPullService"

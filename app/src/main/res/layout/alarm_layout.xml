@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,29 +12,51 @@
     <TimePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/alarmTimePicker"
+        android:id="@+id/timePicker"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true" />
 
-
-    <ToggleButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alarm On/Off"
-        android:id="@+id/alarmToggle"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/alarmTimePicker"
-        android:onClick="onToggleClicked" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ON"
+        android:id="@+id/alarm_on"
+        android:layout_below="@+id/timePicker"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="43dp"
+        android:clickable="true" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="OFF"
+        android:id="@+id/alarm_off"
+        android:clickable="true"
+        android:layout_alignTop="@+id/alarm_on"
+        android:layout_alignRight="@+id/timePicker"
+        android:layout_alignEnd="@+id/timePicker" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=""
-        android:id="@+id/alarmText"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/alarmToggle" />
+        android:text="Did you set the alarm?"
+        android:id="@+id/update_text"
+        android:layout_below="@+id/timePicker"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_below="@+id/alarm_on"
+        android:layout_toStartOf="@+id/alarm_off"
+        android:layout_marginTop="42dp"
+        android:layout_alignEnd="@+id/alarm_off" />
+
 
 </RelativeLayout>

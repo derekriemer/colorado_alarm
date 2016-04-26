@@ -46,11 +46,10 @@ public class AlarmActivity extends Activity {
     private TextView update_text;
     Context context;
 
-//    //merging AlarmActivity into MainActivity
-//    public static AlarmActivity instance() {
-//        return inst;
-//    }
-
+    /**
+     *
+     * @return active AlarmActivity object to be used elsewhere
+     */
     public static AlarmActivity instance() {
         return instance();
     }
@@ -62,7 +61,11 @@ public class AlarmActivity extends Activity {
 //        inst = this;
     }
 
-
+    /**
+     * Instantiate widget and bind to system calendar data via the android alarm service
+     *
+     * @param savedInstanceState from previously running instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.e("Inside", "on create.");

@@ -12,6 +12,11 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
+    /**
+     *
+     * @param context
+     * @param intent
+     */
     @Override
     public void onReceive(final Context context, Intent intent) {
         //this will update the UI with message

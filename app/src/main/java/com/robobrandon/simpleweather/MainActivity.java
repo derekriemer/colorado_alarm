@@ -28,6 +28,10 @@ import java.util.Calendar;
 import java.util.Random;
 
 
+/**
+ * Primary Activity for our app.  Our "home screen".  Shows the weather as well as the
+ * button which allows for the alarm to be changed.
+ */
 public class MainActivity extends Activity {
 
 
@@ -43,7 +47,11 @@ public class MainActivity extends Activity {
     final static String
             API_ENDPOINT = "http://colorado-alarm-api.herokuapp.com/forecasts?lat=-105.2705456&lon=40.0149856";
 
-
+    /**
+     * Binds views and retrieves weather from Heroku API
+     *
+     * @param savedInstanceState the application state that may still exists if this app was pushed to the background
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +76,9 @@ public class MainActivity extends Activity {
 
     }
 
+    /**
+     * stops foreground threaded volley requests if the app is stopped
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -75,14 +86,8 @@ public class MainActivity extends Activity {
         helper.cancel();
     }
 
-
-
-    private void loadImg() {
-
-    }
-
     /**
-     * Fetches and displays the weather data of Mars.
+     * Fetches and displays the weather data from colorado_alarm_api.herokuapp.com
      */
     private void loadWeatherData() {
 
@@ -100,7 +105,7 @@ public class MainActivity extends Activity {
                             precipProbability= response.getString("precip_probability");
 
 
-                            mTxtDegrees.setText(temp + "°");
+                            mTxtDegrees.setText(temp + "degrees");
                             mTxtWeather.setText(summary);
                         } catch (Exception e) {
                             txtError(e);
@@ -125,12 +130,23 @@ public class MainActivity extends Activity {
         e.printStackTrace();
     }
 
+    /**
+     * Utility function to keep error handling more dry
+     *
+     * @param e exception from text operations
+     */
     private void txtError(Exception e) {
         mTxtError.setVisibility(View.VISIBLE);
         e.printStackTrace();
     }
 
     // UI Method
+
+    /**
+     * Callback for UI to change to the alarm management screen
+     *
+     * @param view view object passed in template
+     */
     public void setAlarm(View view){
         // Build our Intent
         Intent intent = new Intent(this, AlarmActivity.class);

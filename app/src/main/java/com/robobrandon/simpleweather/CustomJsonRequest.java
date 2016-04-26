@@ -8,6 +8,9 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONObject;
 
+/**
+ * Wrapper for drying up our JSON requests
+ */
 public class CustomJsonRequest extends JsonObjectRequest {
 
     public CustomJsonRequest(int method, String url, JSONObject jsonRequest,

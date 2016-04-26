@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application
-        android:name=".MarsWeather"
+        android:name=".RestHelper"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,10 +19,21 @@
             </intent-filter>
         </activity>
         <activity android:name=".AlarmActivity" />
+
         <service
             android:name=".AlarmService"
             android:enabled="true" />
-        <receiver android:name=".AlarmReceiver" />
+        <receiver
+            android:name=".AlarmReceiver"
+            android:process=":remote"/> <!-- see http://stackoverflow.com/questions/4311069/should-i-use-android-process-remote-in-my-receiver -->
+
+        <service
+            android:name=".WeatherPullService"
+            android:exported="false"/>
+        <receiver
+            android:name=".WeatherPullReceiver"
+            android:process=":remote" >
+        </receiver>
 
     </application>
 

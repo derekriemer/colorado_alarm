@@ -1,5 +1,6 @@
 package com.robobrandon.simpleweather;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.app.AlarmManager;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -32,20 +34,14 @@ public class MainActivity extends Activity {
     ImageView mImageView;
     TextView mTxtDegrees, mTxtWeather, mTxtError;
 
-    MarsWeather helper = MarsWeather.getInstance();
+    RestHelper helper = RestHelper.getInstance();
     int today = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     int mainColor = Color.parseColor("#FF5722");
     SharedPreferences mSharedPref;
 
 
     final static String
-            FLICKR_API_KEY = "49fe6498b87721f71a938787976088bd",
-            IMAGES_API_ENDPOINT = "https://api.flickr.com/services/rest/?format=json&nojsoncallback=1&sort=random&method=flickr.photos.search&" +
-                    "tags=mars,planet,rover&tag_mode=all&api_key=",
-            RECENT_API_ENDPOINT = "http://marsweather.ingenology.com/v1/latest/",
-
-            SHARED_PREFS_IMG_KEY = "img",
-            SHARED_PREFS_DAY_KEY = "day";
+            API_ENDPOINT = "http://colorado-alarm-api.herokuapp.com/forecasts?lat=-105.2705456&lon=40.0149856";
 
 
     @Override
@@ -66,25 +62,9 @@ public class MainActivity extends Activity {
         // SharedPreferences setup
         mSharedPref = getPreferences(Context.MODE_PRIVATE);
 
-
-        // Picture
-        if (mSharedPref.getInt(SHARED_PREFS_DAY_KEY, 0) != today) {
-            // search and load a random mars pict.
-            try {
-                searchRandomImage();
-            } catch (Exception e) {
-                // please remember to set your own Flickr API!
-                // otherwise I won't be able to show
-                // a random Mars picture
-                imageError(e);
-            }
-        } else {
-            // we already have a pict of the day: let's load it!
-            loadImg(mSharedPref.getString(SHARED_PREFS_IMG_KEY, ""));
-        }
-
         // Weather data
         loadWeatherData();
+//        scheduleWeatherCheck();
 
     }
 
@@ -95,80 +75,10 @@ public class MainActivity extends Activity {
         helper.cancel();
     }
 
-    /**
-     * Fetches a random picture of Mars, using Flickr APIs, and then displays it.
-     * @throws Exception When a working API key is not provided.
-     */
-    private void searchRandomImage() throws Exception {
-        if (FLICKR_API_KEY.equals(""))
-            throw new Exception("You didn't provide a working Flickr API key!");
 
-        CustomJsonRequest request = new CustomJsonRequest
-                (Request.Method.GET, IMAGES_API_ENDPOINT+ FLICKR_API_KEY, null, new Response.Listener<JSONObject>() {
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // if you want to debug: Log.v(getString(R.string.app_name), response.toString());
+    private void loadImg() {
 
-                        try {
-                            JSONArray images = response.getJSONObject("photos").getJSONArray("photo");
-                            int index = new Random().nextInt(images.length());
-
-                            JSONObject imageItem = images.getJSONObject(index);
-
-                            String imageUrl = "http://farm" + imageItem.getString("farm") +
-                                    ".static.flickr.com/" + imageItem.getString("server") + "/" +
-                                    imageItem.getString("id") + "_" + imageItem.getString("secret") + "_" + "c.jpg";
-
-                            // store the pict of the day
-                            SharedPreferences.Editor editor = mSharedPref.edit();
-                            editor.putInt(SHARED_PREFS_DAY_KEY, today);
-                            editor.putString(SHARED_PREFS_IMG_KEY, imageUrl);
-                            editor.commit();
-
-                            // and finally load it
-                            loadImg(imageUrl);
-
-                        } catch (Exception e) {
-                            imageError(e);
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        imageError(error);
-                    }
-                });
-
-        request.setPriority(Request.Priority.LOW);
-        helper.add(request);
-
-    }
-
-    /**
-     * Downloads and displays the picture using Volley.
-     * @param imageUrl the URL of the picture.
-     */
-    private void loadImg(String imageUrl) {
-        // Retrieves an image specified by the URL, and displays it in the UI
-        ImageRequest request = new ImageRequest(imageUrl,
-                new Response.Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap bitmap) {
-                        mImageView.setImageBitmap(bitmap);
-                    }
-                }, 0, 0, ImageView.ScaleType.CENTER_CROP, Bitmap.Config.ARGB_8888,
-                new Response.ErrorListener() {
-                    public void onErrorResponse(VolleyError error) {
-                        imageError(error);
-                    }
-                });
-
-        // we don't need to set the priority here;
-        // ImageRequest already comes in with
-        // priority set to LOW, that is exactly what we need.
-        helper.add(request);
     }
 
     /**
@@ -177,29 +87,21 @@ public class MainActivity extends Activity {
     private void loadWeatherData() {
 
         CustomJsonRequest request = new CustomJsonRequest
-                (Request.Method.GET, RECENT_API_ENDPOINT, null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, API_ENDPOINT, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         // if you want to debug: Log.v(getString(R.string.app_name), response.toString());
                         try {
-
-                            String minTemp, maxTemp, atmo;
-                            int avgTemp;
-
-                            response = response.getJSONObject("report");
-
-                            minTemp = response.getString("min_temp"); minTemp = minTemp.substring(0, minTemp.indexOf("."));
-                            maxTemp = response.getString("max_temp"); maxTemp = maxTemp.substring(0, maxTemp.indexOf("."));
-
-                            avgTemp = (Integer.parseInt(minTemp)+Integer.parseInt(maxTemp))/2;
-
-                            atmo = response.getString("atmo_opacity");
+                            String precipType, temp, precipProbability, summary;
+                            summary = response.getString("summary");
+                            temp = response.getString("temperature");
+                            precipType = response.getString("precip_type");
+                            precipProbability= response.getString("precip_probability");
 
 
-                            mTxtDegrees.setText(avgTemp+"°");
-                            mTxtWeather.setText(atmo);
-
+                            mTxtDegrees.setText(temp + "°");
+                            mTxtWeather.setText(summary);
                         } catch (Exception e) {
                             txtError(e);
                         }
@@ -235,5 +137,27 @@ public class MainActivity extends Activity {
         // Don't need to pass anything, just transition.
         startActivity(intent);
     }
+
+    // Setup a recurring alarm every half hour
+//    public void scheduleWeatherCheck() {
+//        // Construct an intent that will execute the AlarmReceiver
+//        Intent intent = new Intent(getApplicationContext(), WeatherPullReceiver.class);
+//        // Create a PendingIntent to be triggered when the alarm goes off
+//        final PendingIntent pIntent = PendingIntent.getBroadcast(this, WeatherPullReceiver.REQUEST_CODE,
+//                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        // Setup periodic alarm every 5 seconds
+//        long firstMillis = System.currentTimeMillis(); // alarm is set right away
+//        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+//        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
+//                AlarmManager.INTERVAL_HALF_HOUR, pIntent);
+//    }
+//
+//    public void cancelWeatherService() {
+//        Intent intent = new Intent(getApplicationContext(), WeatherPullReceiver.class);
+//        final PendingIntent pIntent = PendingIntent.getBroadcast(this, WeatherPullReceiver.REQUEST_CODE,
+//                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+//        alarm.cancel(pIntent);
+//    }
 
 }

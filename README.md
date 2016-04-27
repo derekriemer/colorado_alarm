@@ -1,4 +1,4 @@
-# Weather Alarm Clock
+#Weather Alarm Clock
 
 ### Bulding Docs
 To build docs in android studio, go Tools-> Generate JavaDocs.

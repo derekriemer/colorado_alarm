@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation ="vertical"
+    android:background="@color/btn_bg"
+    tools:context="com.example.amir.locationfinder.MainActivity">
+
+
+    <TextView
+        android:id="@+id/lblLocation"
+        android:text="@string/lbl_you_are_at"
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:text="@string/btn_get_location"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        />
+    <Button
+        android:id="@+id/buttonShowLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:background="@color/view_big"
+        android:paddingLeft="20dp"
+        android:paddingRight="50dp"
+        android:text="@string/btn_get_location"
+        android:textColor="@color/white"
+        />
+
+    <Button
+        android:id="@+id/buttonUpdateLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:background="@color/view_big"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/btn_start_location_updates"
+        android:textColor="@color/white"
+        />
+</android.support.design.widget.CoordinatorLayout>

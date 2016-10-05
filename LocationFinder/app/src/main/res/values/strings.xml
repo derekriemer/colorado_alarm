@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LocationFinder</string>
+    <string name="action_settings">Settings</string>
+    <string name="lbl_you_are_at">You are at</string>
+    <string name="btn_get_location">Get my Location</string>
+    <string name="btn_start_location_updates">Update my Location</string>
+    <string name="btn_stop_location_update">Stop Location Update</string>
+
+</resources>
